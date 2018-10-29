@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:mvc="http://www.springframework.org/schema/mvc"
+       xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
+                        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+                        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <!--1.自动扫描注入(扫描主包下面的所有注解)-->
+    <context:component-scan base-package="top.youshang520i"/>
+
+
+    <!--2.引入配置文件-->
+    <bean id="property" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:db.properties"></property>
+    </bean>
+    <!--3.配置配置文件-->
+    <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
+        <property name="username" value="${mysql.username}"></property>
+        <property name="url" value="${mysql.url}"></property>
+        <property name="driverClassName" value="${mysql.driver}"></property>
+        <property name="password" value="${mysql.pwd}"></property>
+        <property name="initialSize" value="${mysql.initialSize}"></property>
+        <property name="minIdle" value="${mysql.minidle}"></property>
+        <property name="maxActive" value="${mysql.maxActive}"></property>
+        <property name="maxWait" value="${mysql.maxWait}"></property>
+        <property name="timeBetweenEvictionRunsMillis" value="${mysql.timeBetweenEvictionRunsMillis}"></property>
+        <property name="minEvictableIdleTimeMillis" value="${mysql.minEvictableIdleTimeMillis}"></property>
+        <property name="testWhileIdle" value="${mysql.testWhileIdle}"></property>
+        <property name="testOnBorrow" value="${mysql.testOnBorrow}"></property>
+        <property name="testOnReturn" value="${mysql.testOnReturn}"></property>
+        <property name="poolPreparedStatements" value="${mysql.poolPreparedStatements}"></property>
+        <property name="maxPoolPreparedStatementPerConnectionSize" value="${mysql.maxPoolPreparedStatementPerConnectionSize}"></property>
+        <property name="validationQuery" value="SELECT 'x'"></property>
+    </bean>
+
+    <!--4.添加原先mybatis-config.xml的配置-->
+    <bean id="sqlSessionFaction" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="dataSource" ref="dataSource"></property>
+        <property name="mapperLocations" value="classpath:mybatis/mappers/*.xml"></property>
+        <property name="typeAliasesPackage" value="classpath:top.youshang520i.pojo"></property>
+    </bean>
+
+    <!--5.配置Dao接口中的sqlSessionFaction-->
+    <bean  class="org.mybatis.spring.mapper.MapperScannerConfigurer"><!--id="mpperScannerConfigurer"-->
+            <property name="basePackage" value="top.youshang520i.dao"></property>
+            <property name="sqlSessionFactoryBeanName" value="sqlSessionFaction"></property>
+    </bean>
+
+    <!--6.配置事务-->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <property name="dataSource" ref="dataSource"></property>
+    </bean>
+
+</beans>
