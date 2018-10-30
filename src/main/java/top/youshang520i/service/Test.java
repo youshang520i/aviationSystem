@@ -6,4 +6,8 @@ package top.youshang520i.service;
  * @desc test
  */
 public class Test {
+
+    public static void main(String[] args) {
+
+    }
 }
