@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="top.youshang520i.dao.F_AdminDao">
+
+<!--auto generated Code-->
+    <resultMap id="AllColumnMap" type="top.youshang520i.pojo.F_Admin">
+        <result column="id" property="id"/>
+        <result column="code" property="code"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="name" property="name"/>
+        <result column="sex" property="sex"/>
+        <result column="age" property="age"/>
+        <result column="post" property="post"/>
+        <result column="qq" property="qq"/>
+        <result column="tel" property="tel"/>
+        <result column="email" property="email"/>
+        <result column="other" property="other"/>
+        <result column="role__id" property="role_Id"/>
+        <result column="state" property="state"/>
+        <result column="add__time" property="add_Time"/>
+        <result column="login__time" property="login_Time"/>
+        <result column="remark" property="remark"/>
+    </resultMap>
+
+<!--auto generated Code-->
+    <sql id="all_column">
+        id,
+        code,
+        username,
+        password,
+        name,
+        sex,
+        age,
+        post,
+        qq,
+        tel,
+        email,
+        other,
+        role_id,
+        state,
+        add_time,
+        login_time,
+        remark
+    </sql>
+
+<!--auto generated Code-->
+    <insert id="insert">
+        INSERT INTO f_admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> id, </if>
+            <if test="pojo.code != null"> code, </if>
+            <if test="pojo.username != null"> username, </if>
+            <if test="pojo.password != null"> password, </if>
+            <if test="pojo.name != null"> name, </if>
+            <if test="pojo.sex != null"> sex, </if>
+            <if test="pojo.age != null"> age, </if>
+            <if test="pojo.post != null"> post, </if>
+            <if test="pojo.qq != null"> qq, </if>
+            <if test="pojo.tel != null"> tel, </if>
+            <if test="pojo.email != null"> email, </if>
+            <if test="pojo.other != null"> other, </if>
+            <if test="pojo.role_Id != null"> role__id, </if>
+            <if test="pojo.state != null"> state, </if>
+            <if test="pojo.add_Time != null"> add__time, </if>
+            <if test="pojo.login_Time != null"> login__time, </if>
+            <if test="pojo.remark != null"> remark, </if>
+        </trim>
+        VALUES
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="pojo.id != null"> #{pojo.id}, </if>
+            <if test="pojo.code != null"> #{pojo.code}, </if>
+            <if test="pojo.username != null"> #{pojo.username}, </if>
+            <if test="pojo.password != null"> #{pojo.password}, </if>
+            <if test="pojo.name != null"> #{pojo.name}, </if>
+            <if test="pojo.sex != null"> #{pojo.sex}, </if>
+            <if test="pojo.age != null"> #{pojo.age}, </if>
+            <if test="pojo.post != null"> #{pojo.post}, </if>
+            <if test="pojo.qq != null"> #{pojo.qq}, </if>
+            <if test="pojo.tel != null"> #{pojo.tel}, </if>
+            <if test="pojo.email != null"> #{pojo.email}, </if>
+            <if test="pojo.other != null"> #{pojo.other}, </if>
+            <if test="pojo.role_Id != null"> #{pojo.role_Id}, </if>
+            <if test="pojo.state != null"> #{pojo.state}, </if>
+            <if test="pojo.add_Time != null"> #{pojo.add_Time}, </if>
+            <if test="pojo.login_Time != null"> #{pojo.login_Time}, </if>
+            <if test="pojo.remark != null"> #{pojo.remark}, </if>
+        </trim>
+    </insert>
+
+<!--auto generated Code-->
+    <insert id="insertList">
+        INSERT INTO f_admin(
+        <include refid="all_column"/>
+        )VALUES
+        <foreach collection="pojos" item="pojo" index="index" separator=",">
+            (
+            #{pojo.id},
+            #{pojo.code},
+            #{pojo.username},
+            #{pojo.password},
+            #{pojo.name},
+            #{pojo.sex},
+            #{pojo.age},
+            #{pojo.post},
+            #{pojo.qq},
+            #{pojo.tel},
+            #{pojo.email},
+            #{pojo.other},
+            #{pojo.role_Id},
+            #{pojo.state},
+            #{pojo.add_Time},
+            #{pojo.login_Time},
+            #{pojo.remark}
+            )
+        </foreach>
+    </insert>
+
+<!--auto generated Code-->
+    <update id="update">
+        UPDATE f_admin
+        <set>
+            <if test="pojo.id != null"> id = #{pojo.id}, </if>
+            <if test="pojo.code != null"> code = #{pojo.code}, </if>
+            <if test="pojo.username != null"> username = #{pojo.username}, </if>
+            <if test="pojo.password != null"> password = #{pojo.password}, </if>
+            <if test="pojo.name != null"> name = #{pojo.name}, </if>
+            <if test="pojo.sex != null"> sex = #{pojo.sex}, </if>
+            <if test="pojo.age != null"> age = #{pojo.age}, </if>
+            <if test="pojo.post != null"> post = #{pojo.post}, </if>
+            <if test="pojo.qq != null"> qq = #{pojo.qq}, </if>
+            <if test="pojo.tel != null"> tel = #{pojo.tel}, </if>
+            <if test="pojo.email != null"> email = #{pojo.email}, </if>
+            <if test="pojo.other != null"> other = #{pojo.other}, </if>
+            <if test="pojo.role_Id != null"> role__id = #{pojo.role_Id}, </if>
+            <if test="pojo.state != null"> state = #{pojo.state}, </if>
+            <if test="pojo.add_Time != null"> add__time = #{pojo.add_Time}, </if>
+            <if test="pojo.login_Time != null"> login__time = #{pojo.login_Time}, </if>
+            <if test="pojo.remark != null"> remark = #{pojo.remark} </if>
+        </set>
+         WHERE id = #{pojo.id}
+    </update>
+
+<!--auto generated Code-->
+    <select id="select" resultMap="AllColumnMap">
+        SELECT <include refid="all_column"/>
+        FROM f_admin
+        <where>
+            <if test="pojo.id != null"> AND id = #{pojo.id} </if>
+            <if test="pojo.code != null"> AND code = #{pojo.code} </if>
+            <if test="pojo.username != null"> AND username = #{pojo.username} </if>
+            <if test="pojo.password != null"> AND password = #{pojo.password} </if>
+            <if test="pojo.name != null"> AND name = #{pojo.name} </if>
+            <if test="pojo.sex != null"> AND sex = #{pojo.sex} </if>
+            <if test="pojo.age != null"> AND age = #{pojo.age} </if>
+            <if test="pojo.post != null"> AND post = #{pojo.post} </if>
+            <if test="pojo.qq != null"> AND qq = #{pojo.qq} </if>
+            <if test="pojo.tel != null"> AND tel = #{pojo.tel} </if>
+            <if test="pojo.email != null"> AND email = #{pojo.email} </if>
+            <if test="pojo.other != null"> AND other = #{pojo.other} </if>
+            <if test="pojo.role_Id != null"> AND role__id = #{pojo.role_Id} </if>
+            <if test="pojo.state != null"> AND state = #{pojo.state} </if>
+            <if test="pojo.add_Time != null"> AND add__time = #{pojo.add_Time} </if>
+            <if test="pojo.login_Time != null"> AND login__time = #{pojo.login_Time} </if>
+            <if test="pojo.remark != null"> AND remark = #{pojo.remark} </if>
+        </where>
+        LIMIT 1000 
+    </select>
+
+<!--auto generated Code-->
+    <!--<delete id="delete">
+        DELETE FROM f__admin where id = #{pojo.id}
+    </delete>-->
+</mapper>

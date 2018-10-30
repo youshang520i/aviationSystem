@@ -4,18 +4,21 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:util="http://www.springframework.org/schema/util"
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-4.2.xsd
                         http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
                         http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.2.xsd
-                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd">
+                        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.2.xsd http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
     <!--1.自动扫描注入(扫描主包下面的所有注解)-->
     <context:component-scan base-package="top.youshang520i"/>
 
 
     <!--2.引入配置文件-->
-    <bean id="property" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
-        <property name="location" value="classpath:db.properties"></property>
-    </bean>
+    <!--<bean id="property" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="location" value="classpath:db.properties,redis.properties"></property>
+    </bean>-->
+    <context:property-placeholder ignore-unresolvable="true" location="classpath:db.properties,classpath:redis.properties"></context:property-placeholder>
+
     <!--3.配置配置文件-->
     <bean id="dataSource" class="com.alibaba.druid.pool.DruidDataSource" destroy-method="close" init-method="init">
         <property name="username" value="${mysql.username}"></property>
@@ -53,5 +56,14 @@
     <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
         <property name="dataSource" ref="dataSource"></property>
     </bean>
+
+    <!--7.集成Redis-->
+    <bean id="jedisPool" class="redis.clients.jedis.JedisPool">
+        <constructor-arg name="host" value="${redis.host}"></constructor-arg>
+        <constructor-arg name="port" value="${redis.port}"></constructor-arg>
+    </bean>
+
+    <bean id="redisCache" class="top.youshang520i.util.RedisUtils"></bean>
+    <bean id="gson" class="com.google.gson.Gson"></bean>
 
 </beans>
